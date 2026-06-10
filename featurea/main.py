@@ -2,8 +2,17 @@ from fastapi import FastAPI,HTTPException
 from schemas import StudentInfoInitial,TeacherInfoInitial
 from text_extractor import student_extractor,teacher_extractor
 from mongodb_writer import write_student_answer,write_teacher_answer
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
