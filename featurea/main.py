@@ -1,5 +1,5 @@
 from fastapi import FastAPI,HTTPException
-from schemas import StudentInfoInitial,TeacherInfoInitial,TeacherInfoStorable
+from schemas import StudentInfoInitial,TeacherInfoInitial,TeacherInfoStorable,StudentInfoStorable
 from text_extractor import student_extractor,teacher_extractor
 from mongodb_writer import write_student_answer,write_teacher_answer
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,6 +37,25 @@ async def upload_student(
             "success": True,
             "student_id": student_doc.student_id,
             "question_id": student_doc.question_id,
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+    
+@app.post("/student/uploadExt")
+async def upload_student_extracted(
+        student_info : StudentInfoStorable
+    ):
+    try :
+        write_student_answer(student_info)
+
+        return {
+            "success": True,
+            "student_id": student_info.student_id,
+            "question_id": student_info.question_id,
         }
 
     except Exception as e:
