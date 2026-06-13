@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 from langchain_core.messages import SystemMessage, HumanMessage
 
-# Strict Data Contracts (Standardized plural schemas)
+
 from mcq.schemas import GeneratedMCQ
 from retrieval.schema import ParentContext
 
@@ -157,8 +157,7 @@ Respond ONLY with a raw, valid JSON object matching this schema. No markdown, no
 
         context_map: Dict[str, str] = {str(p.parent_id): str(p.text) for p in parent_contexts}
         
-        # Memory/Token Optimization: Limit fallback to the first 5 contexts
-        # Prevents building a massive string just to have it arbitrarily truncated later
+
         combined_fallback = "\n\n".join(list(context_map.values())[:5])
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
