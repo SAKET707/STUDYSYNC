@@ -10,6 +10,11 @@ class Settings(BaseSettings):
 
     GROQ_API_KEY: str
 
+    
+    REDIS_HOST: str
+    REDIS_PORT: int = 6379
+    REDIS_PASSWORD: str
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8"
@@ -17,3 +22,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
