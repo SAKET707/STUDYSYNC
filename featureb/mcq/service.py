@@ -106,7 +106,7 @@ class MCQService:
 
         return MCQGenerationResult(mcqs=faithful_mcqs)
 
-    def _prefetch_pages(self, request: MCQGenerationRequest, pages_to_prefetch: int = 2):
+    def _prefetch_pages(self, request: MCQGenerationRequest, pages_to_prefetch: int = 5):
         """
         Background worker: Predictively generates and caches subsequent pages.
         """
